@@ -1,6 +1,6 @@
 QT += core gui
 QT_MAJOR_VERSION = 6
-RESOURCES = resources.qrc
+RESOURCES = ../resources.qrc
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
