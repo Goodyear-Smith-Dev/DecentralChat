@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+#include "mainwindow.hpp"
 
 #include <QApplication>
 #include <QLocale>
@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
 
     QTranslator translator;
     const QStringList uiLanguages = QLocale::system().uiLanguages();
-    for (const QString &locale : uiLanguages) {
+    for (const QString& locale: uiLanguages) {
         const QString baseName = "DecentralChat_" + QLocale(locale).name();
         if (translator.load(":/i18n/" + baseName)) {
             app.installTranslator(&translator);
