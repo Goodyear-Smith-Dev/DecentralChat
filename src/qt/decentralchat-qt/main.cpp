@@ -3,6 +3,8 @@
 #include <QApplication>
 #include <QLocale>
 #include <QTranslator>
+#include <QString>
+#include <QStringList>
 
 int main(int argc, char *argv[])
 {
