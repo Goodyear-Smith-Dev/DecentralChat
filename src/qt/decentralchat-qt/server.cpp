@@ -21,8 +21,8 @@
 
 #include "server.hpp"
 
-Server::Server():
-	m_TcpServer(new QTcpServer(this))
+Server::Server(QObject* parent):
+	QTcpServer(parent)
 {
     const QList<QHostAddress> ipAddressesList = QNetworkInterface::allAddresses();
 
@@ -41,18 +41,22 @@ Server::Server():
 
 	m_Port = 16000;//m_TcpServer->serverPort();
 
-	std::cout << "The server is running on IP: " << m_HostAddress.toString().toStdString() << " Port: " << m_Port << std::endl;
+	std::cout << "The server is running on IP: " << m_HostAddress.toString().toStdString() << " Port: " << m_Port << "\n";
 
 	QString message = "Hello, World!";
-	connect(m_TcpServer, &QTcpServer::newConnection, this, [=, &message] {
+	connect(this, &QTcpServer::newConnection, this, [=, &message] {
+		std::cout << "Connection made" << "\n";
 		this->SendMessage(message);
 	});
+	connect(this, &QTcpServer::pendingConnectionAvailable, this, [] {
+		std::cout << "New connection available" << "\n";
+	});
 
-	if (!m_TcpServer->listen(m_HostAddress, m_Port)) {
-		std::cout << "Unable to start the server. Error: " << m_TcpServer->errorString().toStdString() << std::endl;
+	if (!listen(m_HostAddress, m_Port)) {
+		std::cout << "Unable to start the server. Error: " << errorString().toStdString() << "\n";
 	}
 	else {
-		std::cout << "Listening..." << std::endl;
+		std::cout << "Listening..." << "\n";
 	}
 }
 
@@ -60,17 +64,15 @@ Server::~Server() {
 	delete m_TcpServer;
 }
 
-void Server::SendMessage(const QString& message) {
-	std::cout << "Sending message..." << std::endl;
+void Server::incomingConnection(qintptr socketDescriptor) {
+	// Create a new socket for each incoming connection
+    QTcpSocket* socket = new QTcpSocket(this);
+    socket->setSocketDescriptor(socketDescriptor);
 
-	QByteArray block;
-    QDataStream dataStream(&block, QIODevice::WriteOnly);
-    dataStream.setVersion(QDataStream::Qt_6_5);
-	dataStream << message; // Load the message into the data stream
-
-	QTcpSocket* clientConnection = m_TcpServer->nextPendingConnection();
-    connect(clientConnection, &QAbstractSocket::disconnected, clientConnection, &QObject::deleteLater);
-
-	clientConnection->write(block);
-    clientConnection->disconnectFromHost();
+    // Read incoming data
+    connect(socket, &QTcpSocket::readyRead, this, [this, &socket]() {
+        QByteArray data = socket->readAll();
+        QString message = QString::fromUtf8(data);
+        emit MessageReceived(message);
+    });
 }

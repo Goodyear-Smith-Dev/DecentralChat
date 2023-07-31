@@ -22,6 +22,8 @@
 #pragma once
 
 #include <iostream>
+#include <thread>
+#include <chrono>
 
 #include <QAbstractSocket>
 #include <QByteArray>
@@ -35,23 +37,26 @@
 #include <QTcpServer>
 #include <QTcpSocket>
 
-class Server: public QObject {
+class Server: public QTcpServer {
 	Q_OBJECT
 
 public:
-	Server();
+	explicit Server(QObject* parent = nullptr);
 	~Server();
 
 	inline const QHostAddress& GetHostname() const;
 	inline uint16_t GetPort() const;
 
-public:
-	void SendMessage(const QString& message);
+protected:
+	void incomingConnection(qintptr socketDescriptor) override;
 
 private:
 	QTcpServer* m_TcpServer;
 	QHostAddress m_HostAddress;
 	uint16_t m_Port;
+
+signals:
+	void MessageReceived(const QString& message);
 };
 
 inline const QHostAddress& Server::GetHostname() const {
