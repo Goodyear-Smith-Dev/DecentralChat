@@ -36,13 +36,11 @@ class Client: public QObject {
 	Q_OBJECT
 
 public:
-	Client();
+	explicit Client(QObject* parent = nullptr);
 	~Client();
 
 	void ConnectToHost(const QHostAddress& address, uint16_t port);
-
-private slots:
-	void FetchMessage();
+	void SendMessage(const QString& message);
 
 private:
 	QTcpSocket* m_TcpSocket;

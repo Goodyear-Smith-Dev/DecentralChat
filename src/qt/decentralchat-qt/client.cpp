@@ -21,18 +21,20 @@
 
 #include "client.hpp"
 
-Client::Client():
+Client::Client(QObject* parent):
+	QObject(parent),
 	m_TcpSocket(new QTcpSocket(this))
 {
 	m_ReceivedMessage.setDevice(m_TcpSocket);
     m_ReceivedMessage.setVersion(QDataStream::Qt_6_0);
 
-	connect(m_TcpSocket, &QAbstractSocket::connected, this, [] {
-		std::cout << "Connected" << std::endl;
-	});
-	connect(m_TcpSocket, &QAbstractSocket::readyRead, this, &Client::FetchMessage);
-    connect(m_TcpSocket, &QAbstractSocket::errorOccurred, this, [this] {
-		std::cout << "Error: " << this->m_TcpSocket->errorString().toStdString() << std::endl;
+	connect(socket, &QTcpSocket::readyRead, this, [this]() {
+        QByteArray data = m_TcpSocket->readAll();
+        QString message = QString::fromUtf8(data);
+        std::cout << "Received: " << message.toStdString() << "\n";
+    });
+    connect(m_TcpSocket, &QAbstractSocket::errorOccurred, this, [=] {
+		std::cout << "Error: " << m_TcpSocket->errorString().toStdString() << "\n";
 	});
 }
 
@@ -54,16 +56,12 @@ void Client::ConnectToHost(const QHostAddress& address, uint16_t port) {
 	lock.unlock();
 }
 
-void Client::FetchMessage() {
-	std::cout << "Reading message.." << std::endl;
-
-	m_ReceivedMessage.startTransaction();
-	QString message;
-	m_ReceivedMessage >> message; // Get the message from the data stream
-
-	if (!m_ReceivedMessage.commitTransaction()) {
+void Client::SendMessage(const QString& message) {
+	if (m_TcpSocket->state() != QAbstractSocket::ConnectedState) {
 		return;
 	}
 
-	std::cout << "Message: " << message.toUtf8().toStdString() << std::endl;
+	std::cout << "Sending message...\n";
+	QByteArray data = message.toUtf8();
+	m_TcpSocket->write(data);
 }
