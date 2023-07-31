@@ -43,10 +43,8 @@ Server::Server(QObject* parent):
 
 	std::cout << "The server is running on IP: " << m_HostAddress.toString().toStdString() << " Port: " << m_Port << "\n";
 
-	QString message = "Hello, World!";
-	connect(this, &QTcpServer::newConnection, this, [=, &message] {
+	connect(this, &QTcpServer::newConnection, this, [] {
 		std::cout << "Connection made" << "\n";
-		this->SendMessage(message);
 	});
 	connect(this, &QTcpServer::pendingConnectionAvailable, this, [] {
 		std::cout << "New connection available" << "\n";

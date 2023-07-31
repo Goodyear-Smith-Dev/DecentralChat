@@ -28,12 +28,12 @@ Client::Client(QObject* parent):
 	m_ReceivedMessage.setDevice(m_TcpSocket);
     m_ReceivedMessage.setVersion(QDataStream::Qt_6_0);
 
-	connect(socket, &QTcpSocket::readyRead, this, [this]() {
+	connect(m_TcpSocket, &QTcpSocket::readyRead, this, [this]() {
         QByteArray data = m_TcpSocket->readAll();
         QString message = QString::fromUtf8(data);
         std::cout << "Received: " << message.toStdString() << "\n";
     });
-    connect(m_TcpSocket, &QAbstractSocket::errorOccurred, this, [=] {
+    connect(m_TcpSocket, &QAbstractSocket::errorOccurred, this, [this] {
 		std::cout << "Error: " << m_TcpSocket->errorString().toStdString() << "\n";
 	});
 }
