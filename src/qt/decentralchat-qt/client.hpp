@@ -22,6 +22,8 @@
 #pragma once
 
 #include <iostream>
+#include <mutex>
+#include <condition_variable>
 
 #include <QAbstractSocket>
 #include <QDataStream>
@@ -45,4 +47,7 @@ private slots:
 private:
 	QTcpSocket* m_TcpSocket;
     QDataStream m_ReceivedMessage;
+
+	std::mutex m_Mutex;
+	std::condition_variable m_Cv;
 };

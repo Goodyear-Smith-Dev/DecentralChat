@@ -25,11 +25,14 @@ Client::Client():
 	m_TcpSocket(new QTcpSocket(this))
 {
 	m_ReceivedMessage.setDevice(m_TcpSocket);
-    m_ReceivedMessage.setVersion(QDataStream::Qt_6_5);
+    m_ReceivedMessage.setVersion(QDataStream::Qt_6_0);
 
-	connect(m_TcpSocket, &QIODevice::readyRead, this, &Client::FetchMessage);
-    connect(m_TcpSocket, &QAbstractSocket::errorOccurred, this, [=] {
-		std::cout << "Error: " << m_TcpSocket->errorString().toStdString() << std::endl;
+	connect(m_TcpSocket, &QAbstractSocket::connected, this, [] {
+		std::cout << "Connected" << std::endl;
+	});
+	connect(m_TcpSocket, &QAbstractSocket::readyRead, this, &Client::FetchMessage);
+    connect(m_TcpSocket, &QAbstractSocket::errorOccurred, this, [this] {
+		std::cout << "Error: " << this->m_TcpSocket->errorString().toStdString() << std::endl;
 	});
 }
 
@@ -40,9 +43,20 @@ Client::~Client() {
 void Client::ConnectToHost(const QHostAddress& address, uint16_t port) {
 	m_TcpSocket->abort();
 	m_TcpSocket->connectToHost(address, port);
+	//m_TcpSocket->waitForConnected();
+	//m_TcpSocket->waitForReadyRead();
+
+	// Block the thread until a connection is established and data is ready to be read
+	auto lock = std::unique_lock(m_Mutex);
+	m_Cv.wait(lock, [&] {
+		return m_TcpSocket->waitForConnected() && m_TcpSocket->waitForReadyRead();
+	});
+	lock.unlock();
 }
 
 void Client::FetchMessage() {
+	std::cout << "Reading message.." << std::endl;
+
 	m_ReceivedMessage.startTransaction();
 	QString message;
 	m_ReceivedMessage >> message; // Get the message from the data stream
@@ -51,5 +65,5 @@ void Client::FetchMessage() {
 		return;
 	}
 
-	std::cout << "Message: " << message.toStdString() << std::endl;
+	std::cout << "Message: " << message.toUtf8().toStdString() << std::endl;
 }
