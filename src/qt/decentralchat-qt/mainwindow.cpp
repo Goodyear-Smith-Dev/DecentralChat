@@ -5,7 +5,12 @@ MainWindow::MainWindow(QWidget* parent):
 	QMainWindow(parent),
 	ui(new Ui::MainWindow)
 {
-    ui->setupUi(this);
+	ui->setupUi(this);
+
+	Server server;
+
+	Client client;
+	client.ConnectToHost(server.GetHostname(), server.GetPort());
 }
 
 MainWindow::~MainWindow() {
