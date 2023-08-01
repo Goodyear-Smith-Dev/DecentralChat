@@ -21,9 +21,9 @@
 
 #pragma once
 
+#include <cstring>
 #include <iostream>
-#include <mutex>
-#include <condition_variable>
+#include <string>
 
 #include <QAbstractSocket>
 #include <QDataStream>
@@ -40,12 +40,8 @@ public:
 	~Client();
 
 	void ConnectToHost(const QHostAddress& address, uint16_t port);
-	void SendMessage(const QString& message);
+	void SendMessage(const std::string& message);
 
 private:
 	QTcpSocket* m_TcpSocket;
-    QDataStream m_ReceivedMessage;
-
-	std::mutex m_Mutex;
-	std::condition_variable m_Cv;
 };
