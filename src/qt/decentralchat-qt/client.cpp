@@ -37,7 +37,6 @@ Client::~Client() {
 void Client::ConnectToHost(const QHostAddress& address, uint16_t port) {
 	connect(m_TcpSocket, &QAbstractSocket::connected, this, [this]() mutable {
 		std::cout << "Connected\n";
-		SendMessage("Hello, World!\n");
 	});
 
 
