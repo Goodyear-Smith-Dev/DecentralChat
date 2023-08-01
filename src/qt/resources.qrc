@@ -1,5 +1,7 @@
 <!DOCTYPE RCC><RCC version="1.0">
 <qresource prefix="i18n">
 <file alias="DecentralChat_es_MX.qm">../../build/.qm/DecentralChat_es_MX.qm</file>
+<file>styles/decentralchat.light.qss</file>
+<file>styles/decentralchat.dark.qss</file>
 </qresource>
 </RCC>

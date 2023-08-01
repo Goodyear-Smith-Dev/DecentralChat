@@ -1,6 +1,8 @@
 #include "mainwindow.hpp"
 
 #include <QApplication>
+#include <QFile>
+#include <QLatin1String>
 #include <QLocale>
 #include <QTranslator>
 #include <QString>
@@ -9,6 +11,16 @@
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
+
+    //load style
+    QFile file(":/i18n/styles/decentralchat.light.qss");
+    file.open(QFile::ReadOnly);
+    QString stylesheet = QLatin1String(file.readAll());
+    file.close();
+
+    //set style
+    app.setStyleSheet(stylesheet);
+
 
     QTranslator translator;
     const QStringList uiLanguages = QLocale::system().uiLanguages();
