@@ -39,38 +39,47 @@ Server::Server(QObject* parent):
         m_HostAddress = QHostAddress(QHostAddress::LocalHost);
 	}
 
-	m_Port = 16000;//m_TcpServer->serverPort();
+	m_Port = 16000;
 
 	std::cout << "The server is running on IP: " << m_HostAddress.toString().toStdString() << " Port: " << m_Port << "\n";
 
-	connect(this, &QTcpServer::newConnection, this, [] {
-		std::cout << "Connection made" << "\n";
-	});
-	connect(this, &QTcpServer::pendingConnectionAvailable, this, [] {
-		std::cout << "New connection available" << "\n";
+	connect(this, &QTcpServer::newConnection, this, [this] {
+		m_CurrentSocket = nextPendingConnection();
+		std::cout << "Connection made with " << m_CurrentSocket->peerAddress().toString().toStdString() << "\n";
+
+		// Read data from the socket
+		connect(m_CurrentSocket, &QTcpSocket::readyRead, this, [this]() {
+			m_IncomingData += QString::fromUtf8(m_CurrentSocket->readAll());
+			qDebug() << m_IncomingData;
+			while (m_IncomingData.contains("\n")) {
+				int index = m_IncomingData.indexOf('\n');
+				QString message = m_IncomingData.left(index);
+				m_IncomingData = m_IncomingData.mid(index + 1);
+				std::cout << "Received message: " << message << "\n";
+			}
+
+			if (!m_IncomingData.isEmpty()) {
+				std::cout << "Received message: " << m_IncomingData.toStdString() << "\n";
+				m_IncomingData.clear();
+			}
+
+			// NOTE: Altertnate (simpler) method
+			// QByteArray data = m_CurrentSocket->readAll();
+			// QString message = QString::fromUtf8(data);
+			// std::cout << message.toStdString() << "\n";
+		});
+
+		qDebug() << m_CurrentSocket->peerAddress().toString(); // The peer address should now be available.
 	});
 
 	if (!listen(m_HostAddress, m_Port)) {
 		std::cout << "Unable to start the server. Error: " << errorString().toStdString() << "\n";
 	}
 	else {
-		std::cout << "Listening..." << "\n";
+		std::cout << "Listening...\n";
 	}
 }
 
 Server::~Server() {
 	delete m_TcpServer;
-}
-
-void Server::incomingConnection(qintptr socketDescriptor) {
-	// Create a new socket for each incoming connection
-    QTcpSocket* socket = new QTcpSocket(this);
-    socket->setSocketDescriptor(socketDescriptor);
-
-    // Read incoming data
-    connect(socket, &QTcpSocket::readyRead, this, [this, &socket]() {
-        QByteArray data = socket->readAll();
-        QString message = QString::fromUtf8(data);
-        emit MessageReceived(message);
-    });
 }
