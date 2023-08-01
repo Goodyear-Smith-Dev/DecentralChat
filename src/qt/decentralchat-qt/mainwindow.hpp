@@ -38,4 +38,5 @@ public:
 
 private:
 	Ui::MainWindow *ui;
+	Server* m_Server;
 };

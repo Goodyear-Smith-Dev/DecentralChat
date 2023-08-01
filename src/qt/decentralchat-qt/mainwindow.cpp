@@ -3,14 +3,13 @@
 
 MainWindow::MainWindow(QWidget* parent):
 	QMainWindow(parent),
-	ui(new Ui::MainWindow)
+	ui(new Ui::MainWindow),
+	m_Server(new Server)
 {
 	ui->setupUi(this);
 
-	Server server;
-
 	Client client;
-	client.ConnectToHost(server.GetHostname(), server.GetPort());
+	client.ConnectToHost(m_Server->GetHostname(), m_Server->GetPort());
 }
 
 MainWindow::~MainWindow() {
