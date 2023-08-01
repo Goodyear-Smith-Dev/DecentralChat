@@ -55,7 +55,7 @@ Server::Server(QObject* parent):
 				int index = m_IncomingData.indexOf('\n');
 				QString message = m_IncomingData.left(index);
 				m_IncomingData = m_IncomingData.mid(index + 1);
-				std::cout << "Received message: " << message << "\n";
+				std::cout << "Received message: " << message.toStdString() << "\n";
 			}
 
 			if (!m_IncomingData.isEmpty()) {
