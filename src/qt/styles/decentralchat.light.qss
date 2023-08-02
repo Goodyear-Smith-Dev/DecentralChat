@@ -9,10 +9,6 @@ QPushButton {
     font-size: 10pt;
 }
 
-QPushButton:hover {
-    background-color: #b1b1b1;
-}
-
 QLabel {
     font-size: 10pt;
     color: #000;
@@ -32,6 +28,19 @@ QLabel#p_cA_title {
     font-size: 20pt;
 }
 
+QLabel#p_cA_linkLogin {
+    color: #00e;
+}
+
+/* Login Page */
+
+QWidget#p_login_form {
+    background-color: #f4f4f4;
+}
+
+QLabel#p_login_title {
+    font-size: 20pt;
+}
 
 /* Main Page */
 
