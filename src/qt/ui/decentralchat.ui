@@ -321,7 +321,7 @@
                      </widget>
                     </item>
                     <item>
-                     <widget class="QLabel" name="p_cA_linkLogin">
+                     <widget class="Link" name="p_cA_linkLogin">
                       <property name="font">
                        <font>
                         <underline>true</underline>
@@ -332,6 +332,9 @@
                       </property>
                       <property name="text">
                        <string>Login</string>
+                      </property>
+                      <property name="page" stdset="0">
+                       <number>1</number>
                       </property>
                      </widget>
                     </item>
@@ -913,6 +916,13 @@
    </layout>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>Link</class>
+   <extends>QLabel</extends>
+   <header>link.hpp</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

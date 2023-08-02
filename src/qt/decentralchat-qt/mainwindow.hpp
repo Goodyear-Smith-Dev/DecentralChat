@@ -1,6 +1,12 @@
 #pragma once
-
 #include <QMainWindow>
+#include <QStackedWidget>
+
+enum Page {
+    CREATE_ACCOUNT = 0,
+    LOGIN,
+    MAIN
+};
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -15,6 +21,9 @@ public:
     MainWindow(QWidget* parent = nullptr);
     ~MainWindow();
 
+    QStackedWidget* getPages();
+
 private:
 	Ui::MainWindow *ui;
+    QStackedWidget *pages;
 };
