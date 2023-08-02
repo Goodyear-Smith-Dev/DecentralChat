@@ -22,10 +22,10 @@ public:
 
     void setPage(Page value);
 
-    void setWindow(MainWindow* w);
+    void attachTo(QStackedWidget* p);
 
     void goTo();
 
 private:
-    MainWindow* window;
+    QStackedWidget* pages;
 };

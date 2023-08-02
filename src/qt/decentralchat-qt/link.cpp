@@ -25,8 +25,8 @@ void Link::setPage(Page value) {
     }
 }
 
-void Link::setWindow(MainWindow* w) { window = w; }
+void Link::attachTo(QStackedWidget* p) { pages = p; }
 
 void Link::goTo() {
-    window->getPages()->setCurrentIndex((int)getPage());
+    pages->setCurrentIndex((int)getPage());
 }

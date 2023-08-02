@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget* parent):
 
     QList<Link*> links = this->findChildren<Link*>();
     foreach (Link* link, links) {
-        link->setWindow(this);
+        link->attachTo(pages);
     }
 }
 
