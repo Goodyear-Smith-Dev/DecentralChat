@@ -9,7 +9,6 @@
 Link::Link(QWidget* parent) : QLabel(parent) { }
 
 void Link::mouseReleaseEvent(QMouseEvent* event) {
-    std::cout << "is releasing" << std::endl;
     if (event->button() == Qt::LeftButton) {
         goTo();
     }
