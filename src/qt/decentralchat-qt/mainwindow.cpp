@@ -3,7 +3,7 @@
 
 MainWindow::MainWindow(QWidget* parent):
 	QMainWindow(parent),
-	ui(new Ui::MainWindow),
+	m_UI(new Ui::MainWindow),
 	m_Server(new Server),
 	m_Client(new Client)
 {

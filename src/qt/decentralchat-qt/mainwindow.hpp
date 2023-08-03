@@ -37,7 +37,7 @@ public:
     ~MainWindow();
 
 private:
-	Ui::MainWindow *ui;
+	Ui::MainWindow* m_UI;
 	Server* m_Server;
 	Client* m_Client;
 };
