@@ -15,29 +15,33 @@
 // You should have received a copy of the GNU General Public License along
 // with this program. If not, see <https://www.gnu.org/licenses/>
 //
+// Filename: client.hpp
+// Description: A TCP client connection
+//
 
 #pragma once
 
-#include <QMainWindow>
+#include <cstring>
+#include <iostream>
+#include <string>
 
-#include "server.hpp"
-#include "client.hpp"
+#include <QAbstractSocket>
+#include <QDataStream>
+#include <QIODevice>
+#include <QString>
+#include <QObject>
+#include <QTcpSocket>
 
-QT_BEGIN_NAMESPACE
-namespace Ui {
-	class MainWindow;
-}
-QT_END_NAMESPACE
-
-class MainWindow : public QMainWindow {
-    Q_OBJECT
+class Client: public QObject {
+	Q_OBJECT
 
 public:
-    MainWindow(QWidget* parent = nullptr);
-    ~MainWindow();
+	explicit Client(QObject* parent = nullptr);
+	~Client();
+
+	void ConnectToHost(const QHostAddress& address, uint16_t port);
+	void SendMessage(const std::string& message);
 
 private:
-	Ui::MainWindow *ui;
-	Server* m_Server;
-	Client* m_Client;
+	QTcpSocket* m_TcpSocket;
 };
