@@ -1,12 +1,13 @@
 #include "link.hpp"
 #include "mainwindow.hpp"
 
-#include <iostream>
 #include <QLabel>
 #include <QStackedWidget>
 #include <QWidget>
 
-Link::Link(QWidget* parent) : QLabel(parent) { }
+Link::Link(QWidget* parent):
+	QLabel(parent)
+{}
 
 void Link::mouseReleaseEvent(QMouseEvent* event) {
     if (event->button() == Qt::LeftButton) {
@@ -15,18 +16,20 @@ void Link::mouseReleaseEvent(QMouseEvent* event) {
 }
 
 Page Link::getPage() {
-    return (Page)property(PAGE_PROPNAME).toInt();
+    return static_cast<Page>(property(PAGE_PROPNAME).toInt());
 }
 
 void Link::setPage(Page value) {
-    if (getPage()!=value) {
-        setProperty(PAGE_PROPNAME, (int)value);
+    if (getPage() != value) {
+        setProperty(PAGE_PROPNAME, static_cast<int>(value));
         update();
     }
 }
 
-void Link::attachTo(QStackedWidget* p) { pages = p; }
+void Link::attachTo(QStackedWidget* p) {
+	pages = p;
+}
 
 void Link::goTo() {
-    pages->setCurrentIndex((int)getPage());
+    pages->setCurrentIndex(static_cast<int>(getPage()));
 }

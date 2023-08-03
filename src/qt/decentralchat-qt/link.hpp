@@ -1,12 +1,13 @@
 #pragma once
 
-#include "mainwindow.hpp"
-
 #include <QLabel>
 #include <QMouseEvent>
 #include <QStackedWidget>
 
-#define PAGE_PROPNAME "page"
+#include "mainwindow.hpp"
+#include "decentralchat.hpp"
+
+using decentralchat::Page;
 
 class Link: public QLabel
 {
@@ -18,14 +19,12 @@ public:
 
     void mouseReleaseEvent(QMouseEvent* event);
 
-    Page getPage();
-
+	Page getPage();
     void setPage(Page value);
-
     void attachTo(QStackedWidget* p);
-
     void goTo();
 
 private:
     QStackedWidget* pages;
+	static constexpr const char* PAGE_PROPNAME = "page";
 };
