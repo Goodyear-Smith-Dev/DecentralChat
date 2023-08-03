@@ -18,8 +18,10 @@
 
 #pragma once
 
+#include "client.hpp"
+#include "server.hpp"
+
 #include <QMainWindow>
-#include <QStackedWidget>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -36,7 +38,6 @@ public:
 
 private:
 	Ui::MainWindow* m_UI;
-    QStackedWidget *pages;
 	Server* m_Server;
 	Client* m_Client;
 };

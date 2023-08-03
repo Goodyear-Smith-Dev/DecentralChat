@@ -1,5 +1,7 @@
+#include "client.hpp"
 #include "link.hpp"
 #include "mainwindow.hpp"
+#include "server.hpp"
 #include "ui_decentralchat.h"
 
 #include <QList>
@@ -7,7 +9,7 @@
 
 MainWindow::MainWindow(QWidget* parent):
 	QMainWindow(parent),
-	ui(new Ui::MainWindow),
+	m_UI(new Ui::MainWindow),
 	m_Server(new Server),
 	m_Client(new Client)
 {
