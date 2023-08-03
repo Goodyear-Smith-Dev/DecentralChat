@@ -34,7 +34,7 @@ Client::~Client() {
 	delete m_TcpSocket;
 }
 
-void Client::ConnectToHost(const QHostAddress& address, uint16_t port) {
+void Client::connectToHost(const QHostAddress& address, uint16_t port) {
 	connect(m_TcpSocket, &QAbstractSocket::connected, this, [this]() mutable {
 		std::cout << "Connected\n";
 	});
@@ -45,7 +45,7 @@ void Client::ConnectToHost(const QHostAddress& address, uint16_t port) {
 	}
 }
 
-void Client::SendMessage(const std::string& message) {
+void Client::sendMessage(const std::string& message) {
 	if (m_TcpSocket->state() != QAbstractSocket::ConnectedState) {
 		return;
 	}
