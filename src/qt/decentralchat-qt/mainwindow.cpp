@@ -7,7 +7,9 @@
 
 MainWindow::MainWindow(QWidget* parent):
 	QMainWindow(parent),
-	ui(new Ui::MainWindow)
+	ui(new Ui::MainWindow),
+	m_Server(new Server),
+	m_Client(new Client)
 {
     ui->setupUi(this);
     pages = this->findChild<QStackedWidget*>("pages");
