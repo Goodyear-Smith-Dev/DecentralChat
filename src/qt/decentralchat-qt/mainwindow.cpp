@@ -11,21 +11,28 @@ MainWindow::MainWindow(QWidget* parent):
 	m_Server(new Server),
 	m_Client(new Client)
 {
-    ui->setupUi(this);
-    pages = this->findChild<QStackedWidget*>("pages");
+    m_UI->setupUi(this);
+
+    //check for account file
+    if (0) { //placeholder for check
+        //account file found
+        m_UI->stackedWidget->setCurrentIndex(static_cast<int>(Page::LOGIN));
+    }
+    else {
+        //no account file found
+        m_UI->stackedWidget->setCurrentIndex(static_cast<int>(Page::CREATE_ACCOUNT));
+    }
 
     //attach this window to all links
     //https://forum.qt.io/post/670111
 
     QList<Link*> links = this->findChildren<Link*>();
-    foreach (Link* link, links) {
-        link->attachTo(pages);
+    for (Link* link: links) {
+        link->attachTo(m_UI->stackedWidget);
     }
 }
 
 MainWindow::~MainWindow() {
-    delete ui;
+    delete m_UI;
 }
-
-QStackedWidget* MainWindow::getPages() { return pages; }
 
