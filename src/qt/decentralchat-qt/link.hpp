@@ -22,9 +22,10 @@ public:
 	Page getPage();
     void setPage(Page value);
     void attachTo(QStackedWidget* p);
+    QStackedWidget* getAttached();
     void goTo();
 
 private:
-    QStackedWidget* pages;
+    QStackedWidget* pages = nullptr;
 	static constexpr const char* PAGE_PROPNAME = "page";
 };

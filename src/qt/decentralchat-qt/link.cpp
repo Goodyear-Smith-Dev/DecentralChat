@@ -30,6 +30,8 @@ void Link::attachTo(QStackedWidget* p) {
 	pages = p;
 }
 
+QStackedWidget* Link::getAttached() { return pages; }
+
 void Link::goTo() {
     pages->setCurrentIndex(static_cast<int>(getPage()));
 }
