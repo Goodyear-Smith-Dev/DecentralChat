@@ -1,0 +1,78 @@
+QLineEdit {
+    background-color: @color-bg@;
+    color: @color-text@;
+}
+
+QPushButton {
+    background-color: @color-fg@;
+    color: @color-text@;
+    font-size: 10pt;
+}
+
+QLabel {
+    font-size: 10pt;
+    color: @color-text@;
+}
+
+QScrollArea .QWidget {
+    background-color: @color-bg@;
+}
+
+QWidget#windowBody {
+    background-color: @color-bg@;
+}
+
+Link {
+    font-size: 10pt;
+    color: #00e;
+}
+
+QScrollBar {
+    width: 10px;
+}
+
+/* Create Account Page */
+
+QWidget#p_cA_form {
+    background-color: @color-bg2@;
+}
+
+QLabel#p_cA_title {
+    font-size: 20pt;
+}
+
+/* Login Page */
+
+QWidget#p_login_form {
+    background-color: @color-bg2@;
+}
+
+QLabel#p_login_title {
+    font-size: 20pt;
+}
+
+/* Main Page */
+
+
+/* Settings Page */
+
+QWidget#p_sttn Link {
+    color: @color-text@;
+}
+
+QPushButton#p_sttn_leave {
+    qproperty-icon: url(@image-p_sttn_leave@);
+    background-color: transparent;
+}
+
+QLabel#p_sttn_title {
+    font-size: 17pt;
+}
+
+QWidget#p_sttn_categoryLinks {
+    background-color: @color-bg2@;
+}
+
+QLabel#p_sttn_p_appr_title {
+    font-size: 15pt;
+}

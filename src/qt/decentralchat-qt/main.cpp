@@ -1,4 +1,5 @@
 #include "mainwindow.hpp"
+#include "styles.hpp"
 
 #include <QApplication>
 #include <QFile>
@@ -14,13 +15,25 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-    //load style
-    QFile file(":/i18n/styles/decentralchat.light.qss");
-    file.open(QFile::ReadOnly);
-    QString stylesheet = QLatin1String(file.readAll());
-    file.close();
+    //load qss sheet
 
-    //set style
+    QFile sheetFile(":/styles/decentralchat.qss");
+    sheetFile.open(QFile::ReadOnly);
+    QString stylesheet = QLatin1String(sheetFile.readAll());
+    sheetFile.close();
+
+    //load stylevars
+
+    QFile styleFile(":/styles/decentralchat.dark.style");
+    decentralchat::styles::stylevars vars;
+    decentralchat::styles::loadStyleVars(styleFile, vars); //opens and closes file
+
+    //apply stylevars to stylesheet
+
+    stylesheet = decentralchat::styles::applyStyle(stylesheet, vars);
+
+    //set stylesheet
+
     app.setStyleSheet(stylesheet);
 
     QTranslator translator;
