@@ -43,8 +43,8 @@ public:
 	explicit Server(QObject* parent = nullptr);
 	~Server();
 
-	inline const QHostAddress& GetHostname() const;
-	inline uint16_t GetPort() const;
+	inline const QHostAddress& getHostname() const;
+	inline uint16_t getPort() const;
 
 private:
 	QTcpServer* m_TcpServer;
@@ -55,13 +55,13 @@ private:
 	QString m_IncomingData;
 
 signals:
-	void MessageReceived(const QString& message);
+	void messageReceived(const QString& message);
 };
 
-inline const QHostAddress& Server::GetHostname() const {
+inline const QHostAddress& Server::getHostname() const {
 	return m_HostAddress;
 }
 
-inline uint16_t Server::GetPort() const {
+inline uint16_t Server::getPort() const {
 	return m_Port;
 }

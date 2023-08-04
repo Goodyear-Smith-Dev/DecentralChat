@@ -39,8 +39,8 @@ public:
 	explicit Client(QObject* parent = nullptr);
 	~Client();
 
-	void ConnectToHost(const QHostAddress& address, uint16_t port);
-	void SendMessage(const std::string& message);
+	void connectToHost(const QHostAddress& address, uint16_t port);
+	void sendMessage(const std::string& message);
 
 private:
 	QTcpSocket* m_TcpSocket;
