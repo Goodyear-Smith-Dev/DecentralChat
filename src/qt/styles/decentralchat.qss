@@ -1,6 +1,6 @@
 QLineEdit {
-    background-color: @color-bg@;
-    color: @color-text@;
+    background-color: #fff;
+    color: #000;
 }
 
 QPushButton {
@@ -53,6 +53,15 @@ QLabel#p_login_title {
 
 /* Main Page */
 
+QPushButton#p_main_addDest {
+    qproperty-icon: url(@image-p_main_addDest@);
+    background: transparent;
+}
+
+QPushButton#p_main_settings {
+    qproperty-icon: url(@image-p_main_settings@);
+    background: transparent;
+}
 
 /* Settings Page */
 

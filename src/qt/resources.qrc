@@ -10,5 +10,9 @@
 <qresource prefix="images">
 <file alias="close_icon_32.light.png">images/close_icon_32.light.png</file>
 <file alias="close_icon_32.dark.png">images/close_icon_32.dark.png</file>
+<file alias="add_icon_32.light.png">images/add_icon_32.light.png</file>
+<file alias="add_icon_32.dark.png">images/add_icon_32.dark.png</file>
+<file alias="settings_icon_32.light.png">images/settings_icon_32.light.png</file>
+<file alias="settings_icon_32.dark.png">images/settings_icon_32.dark.png</file>
 </qresource>
 </RCC>

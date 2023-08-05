@@ -12,3 +12,5 @@
 
 #images
 @image-p_sttn_leave@ = :/images/close_icon_32.light.png
+@image-p_main_addDest@ = :/images/add_icon_32.light.png
+@image-p_main_settings@ = :/images/settings_icon_32.light.png
