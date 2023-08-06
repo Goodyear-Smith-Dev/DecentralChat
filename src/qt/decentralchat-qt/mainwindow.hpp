@@ -18,10 +18,10 @@
 
 #pragma once
 
-#include <QMainWindow>
-
-#include "server.hpp"
 #include "client.hpp"
+#include "server.hpp"
+
+#include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {

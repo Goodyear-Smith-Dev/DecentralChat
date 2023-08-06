@@ -1,0 +1,16 @@
+#stylevars file for decentralchat.qss
+
+#background colors
+@color-bg@ = #000
+@color-bg2@ = #171717
+
+#foreground colors
+@color-fg@ = #525252
+
+#text color
+@color-text@ = #f0f0f0
+
+#images
+@image-p_sttn_leave@ = :/images/close_icon_32.dark.png
+@image-p_main_addDest@ = :/images/add_icon_32.dark.png
+@image-p_main_settings@ = :/images/settings_icon_32.dark.png
