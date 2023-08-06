@@ -6,7 +6,7 @@
 #include <QStringList>
 #include <QTextStream>
 
-using namespace decentralchat;
+namespace styles = decentralchat::styles;
 
 void styles::loadStyleVars(QFile& file, styles::stylevars& vars) {
     if (!file.isOpen()) {
@@ -23,16 +23,16 @@ void styles::loadStyleVars(QFile& file, styles::stylevars& vars) {
         QString name = list.takeFirst().trimmed();
         QString value = list.join("=").trimmed();
         for (auto pair : vars) {
-            value = value.replace(pair.first, pair.second);   
+            value = value.replace(pair.first, pair.second);
         }
         vars[name] = value;
     }
     file.close();
 }
 
-QString styles::applyStyle(QString styleSheet, styles::stylevars& vars) {
+QString styles::applyStyle(const QString& styleSheet, const styles::stylevars& vars) {
     QString rtv = styleSheet;
-    for (auto pair : vars) {
+    for (const auto& pair: vars) {
         rtv.replace(pair.first, pair.second);
     }
     return rtv;
