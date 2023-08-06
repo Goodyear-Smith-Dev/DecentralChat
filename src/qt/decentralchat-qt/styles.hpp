@@ -4,7 +4,6 @@
 #include <QString>
 #include <unordered_map>
 
-
 namespace decentralchat::styles {
     typedef std::unordered_map<QString, QString> stylevars;
 
