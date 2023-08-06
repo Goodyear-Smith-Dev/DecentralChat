@@ -4,7 +4,6 @@
 #include <QMouseEvent>
 #include <QStackedWidget>
 
-#include "mainwindow.hpp"
 #include "enums.hpp"
 
 using decentralchat::enums::Page;
