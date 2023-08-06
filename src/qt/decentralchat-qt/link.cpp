@@ -1,5 +1,4 @@
 #include "link.hpp"
-#include "mainwindow.hpp"
 
 #include <QLabel>
 #include <QStackedWidget>
