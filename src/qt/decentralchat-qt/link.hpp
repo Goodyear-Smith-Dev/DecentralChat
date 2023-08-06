@@ -19,10 +19,10 @@ public:
 
     void mouseReleaseEvent(QMouseEvent* event);
 
-	Page getPage();
+	Page getPage() const;
     void setPage(Page value);
     void attachTo(QStackedWidget* p);
-    QStackedWidget* getAttached();
+    QStackedWidget* getAttached() const;
     void goTo();
 
 private:
