@@ -15,7 +15,7 @@ void Link::mouseReleaseEvent(QMouseEvent* event) {
     }
 }
 
-Page Link::getPage() {
+Page Link::getPage() const {
     return static_cast<Page>(property(PAGE_PROPNAME).toInt());
 }
 
@@ -30,7 +30,9 @@ void Link::attachTo(QStackedWidget* p) {
 	pages = p;
 }
 
-QStackedWidget* Link::getAttached() { return pages; }
+QStackedWidget* Link::getAttached() const {
+    return pages;
+}
 
 void Link::goTo() {
     pages->setCurrentIndex(static_cast<int>(getPage()));
