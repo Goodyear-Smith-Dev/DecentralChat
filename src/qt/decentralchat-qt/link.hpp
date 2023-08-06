@@ -5,9 +5,9 @@
 #include <QStackedWidget>
 
 #include "mainwindow.hpp"
-#include "decentralchat.hpp"
+#include "enums.hpp"
 
-using decentralchat::Page;
+using decentralchat::enums::Page;
 
 class Link: public QLabel
 {
