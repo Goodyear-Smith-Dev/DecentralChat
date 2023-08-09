@@ -14,15 +14,6 @@ namespace accounts = decentralchat::accounts;
 uint64_t getNow() { return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count(); }
 
 
-accounts::Account* accounts::Account::create(QString name, QString displayName, QString password) {
-    //TODO generate rsa keypair
-    QString publicKey;
-    QString privateKey;
-    //TODO encrypt password and private key
-    QByteArray encrypted;
-    return new Account(LATEST_ACCOUNT_VERSION, generateId(), name, displayName, publicKey, encrypted);
-}
-
 accounts::Account::Account(ushort version, uint64_t id, QString name, QString displayName, QString publicKey, QByteArray encrypted) {
     this->version = version;
     this->id = id;
@@ -71,6 +62,19 @@ bool accounts::Account::decrypt(std::string password, accounts::DecryptedData& d
         default:
             return false;
     }
+}
+
+void accounts::Account::setDisplayName(QString displayName) {
+    this->displayName = displayName;
+}
+
+accounts::Account* accounts::create(QString name, QString displayName, QString password) {
+    //TODO generate rsa keypair
+    QString publicKey;
+    QString privateKey;
+    //TODO encrypt password and private key
+    QByteArray encrypted;
+    return new Account(LATEST_ACCOUNT_VERSION, generateId(), name, displayName, publicKey, encrypted);
 }
 
 uint64_t accounts::generateId() {
