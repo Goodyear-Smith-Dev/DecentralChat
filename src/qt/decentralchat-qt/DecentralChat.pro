@@ -4,8 +4,12 @@ RESOURCES = ../resources.qrc
 
 # All paths are local to the build directory
 SRC = ../src
-SUBMODULE_PATH = ../vendor/
+SUBMODULE_PATH = ../vendor
 LIBRARY_PATH = ../lib
+
+win32:SRC = ../..
+win32:SUBMODULE_PATH = ../../../vendor
+win32:LIBRARY_PATH = ../../../lib
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -35,8 +39,7 @@ CONFIG += embed_translations
 
 INCLUDEPATH += $${SRC} $${SUBMODULE_PATH}
 
-win32:LIBS += cryptlib.dll
-unix:LIBS += $${LIBRARY_PATH}/libcryptopp.a
+LIBS += $${LIBRARY_PATH}/libcryptopp.a
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
