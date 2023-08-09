@@ -1,5 +1,5 @@
 #include <cstdlib>
-#include <iostream>
+#include <cassert>
 
 #include "rsautil.hpp"
 
