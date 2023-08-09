@@ -7,10 +7,10 @@ MainWindow::MainWindow(QWidget* parent):
 	m_Server(new Server),
 	m_Client(new Client)
 {
-	ui->setupUi(this);
+	m_UI->setupUi(this);
 }
 
 MainWindow::~MainWindow() {
-    delete ui;
+    delete m_UI;
 }
 
