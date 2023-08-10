@@ -10,9 +10,10 @@
 #include <cryptopp/config_int.h>
 
 namespace aes = decentralchat::aes;
-
 using aes::AESData;
 using aes::AESHexData;
+
+using CryptoPP::byte;
 
 AESData aes::encrypt(const std::string& message) noexcept(false) {
 	CryptoPP::AutoSeededRandomPool rng;

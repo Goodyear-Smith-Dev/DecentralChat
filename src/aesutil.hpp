@@ -7,7 +7,6 @@
 #include <cryptopp/secblock.h>
 
 using CryptoPP::AES;
-using CryptoPP::byte;
 
 namespace decentralchat::aes {
 	// Represent raw, binary AES data
