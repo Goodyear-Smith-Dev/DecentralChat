@@ -54,7 +54,7 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="p_cA">
        <property name="sizePolicy">
@@ -241,7 +241,14 @@
                     <property name="bottomMargin">
                      <number>0</number>
                     </property>
-                    <item row="0" column="0" colspan="2">
+                    <item row="1" column="0" colspan="2">
+                     <widget class="QLabel" name="p_cA_invalid">
+                      <property name="text">
+                       <string/>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="2" column="0" colspan="2">
                      <widget class="QLabel" name="p_cA_nameLabel">
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
@@ -268,7 +275,23 @@
                       </property>
                      </widget>
                     </item>
-                    <item row="3" column="0" colspan="2">
+                    <item row="3" column="0">
+                     <widget class="QLineEdit" name="p_cA_nameInput">
+                      <property name="minimumSize">
+                       <size>
+                        <width>150</width>
+                        <height>0</height>
+                       </size>
+                      </property>
+                      <property name="toolTip">
+                       <string/>
+                      </property>
+                      <property name="statusTip">
+                       <string/>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="6" column="0" colspan="2">
                      <widget class="QLabel" name="p_cA_passwordLabel">
                       <property name="text">
                        <string>Password</string>
@@ -284,17 +307,7 @@
                       </property>
                      </widget>
                     </item>
-                    <item row="1" column="0">
-                     <widget class="QLineEdit" name="p_cA_nameInput">
-                      <property name="minimumSize">
-                       <size>
-                        <width>150</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="4" column="0">
+                    <item row="7" column="0">
                      <widget class="QLineEdit" name="p_cA_passwordInput">
                       <property name="minimumSize">
                        <size>
@@ -589,7 +602,53 @@
                     <property name="bottomMargin">
                      <number>0</number>
                     </property>
-                    <item row="0" column="0" colspan="2">
+                    <item row="3" column="0">
+                     <widget class="QLineEdit" name="p_login_nameInput">
+                      <property name="minimumSize">
+                       <size>
+                        <width>150</width>
+                        <height>0</height>
+                       </size>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="5" column="0" colspan="2">
+                     <widget class="QLabel" name="p_login_passwordLabel">
+                      <property name="text">
+                       <string>Password</string>
+                      </property>
+                      <property name="textFormat">
+                       <enum>Qt::AutoText</enum>
+                      </property>
+                      <property name="textInteractionFlags">
+                       <set>Qt::NoTextInteraction</set>
+                      </property>
+                      <property name="buddy">
+                       <cstring>p_login_passwordInput</cstring>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="6" column="0">
+                     <widget class="QLineEdit" name="p_login_passwordInput">
+                      <property name="minimumSize">
+                       <size>
+                        <width>150</width>
+                        <height>0</height>
+                       </size>
+                      </property>
+                      <property name="echoMode">
+                       <enum>QLineEdit::Password</enum>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="0">
+                     <widget class="QLabel" name="p_login_invalid">
+                      <property name="text">
+                       <string/>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="2" column="0">
                      <widget class="QLabel" name="p_login_nameLabel">
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
@@ -613,45 +672,6 @@
                       </property>
                       <property name="buddy">
                        <cstring>p_login_nameInput</cstring>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="3" column="0" colspan="2">
-                     <widget class="QLabel" name="p_login_passwordLabel">
-                      <property name="text">
-                       <string>Password</string>
-                      </property>
-                      <property name="textFormat">
-                       <enum>Qt::AutoText</enum>
-                      </property>
-                      <property name="textInteractionFlags">
-                       <set>Qt::NoTextInteraction</set>
-                      </property>
-                      <property name="buddy">
-                       <cstring>p_login_passwordInput</cstring>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="1" column="0">
-                     <widget class="QLineEdit" name="p_login_nameInput">
-                      <property name="minimumSize">
-                       <size>
-                        <width>150</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="4" column="0">
-                     <widget class="QLineEdit" name="p_login_passwordInput">
-                      <property name="minimumSize">
-                       <size>
-                        <width>150</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="echoMode">
-                       <enum>QLineEdit::Password</enum>
                       </property>
                      </widget>
                     </item>
@@ -826,8 +846,8 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>200</width>
-                   <height>534</height>
+                   <width>189</width>
+                   <height>16</height>
                   </rect>
                  </property>
                 </widget>
@@ -1043,8 +1063,8 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>600</width>
-                   <height>530</height>
+                   <width>39</width>
+                   <height>16</height>
                   </rect>
                  </property>
                 </widget>
@@ -1232,8 +1252,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>120</width>
-                <height>555</height>
+                <width>109</width>
+                <height>26</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -1308,8 +1328,8 @@
                    <rect>
                     <x>0</x>
                     <y>0</y>
-                    <width>680</width>
-                    <height>555</height>
+                    <width>67</width>
+                    <height>33</height>
                    </rect>
                   </property>
                   <layout class="QVBoxLayout" name="verticalLayout_8">

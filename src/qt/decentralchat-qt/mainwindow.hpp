@@ -40,4 +40,8 @@ private:
 	Ui::MainWindow* m_UI;
 	Server* m_Server;
 	Client* m_Client;
+
+private slots:
+	void handleCreateAccount();
+	void handleLogin();
 };

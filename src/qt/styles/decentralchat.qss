@@ -41,6 +41,10 @@ QLabel#p_cA_title {
     font-size: 20pt;
 }
 
+QLabel#p_cA_invalid {
+    color: #900;
+}
+
 /* Login Page */
 
 QWidget#p_login_form {
@@ -49,6 +53,10 @@ QWidget#p_login_form {
 
 QLabel#p_login_title {
     font-size: 20pt;
+}
+
+QLabel#p_login_invalid {
+    color: #900;
 }
 
 /* Main Page */
