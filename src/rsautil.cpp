@@ -19,7 +19,7 @@ namespace rsa = decentralchat::rsa;
 using CryptoPP::byte;
 
 // Generate public and private RSA keys for signing transactions
-std::tuple<CryptoPP::InvertibleRSAFunction, RSA::PublicKey, RSA::PrivateKey> rsa::generateKeys() noexcept(false) {
+std::tuple<RSA::PublicKey, RSA::PrivateKey, CryptoPP::InvertibleRSAFunction> rsa::generateKeys() noexcept(false) {
 	CryptoPP::AutoSeededRandomPool rng; // Random number generator
 	CryptoPP::InvertibleRSAFunction params;
 	constexpr int KEY_SIZE = 4096, VALIDATION_LEVEL = 3;
@@ -40,7 +40,7 @@ std::tuple<CryptoPP::InvertibleRSAFunction, RSA::PublicKey, RSA::PrivateKey> rsa
 		throw std::runtime_error("Public key validation failed. Aborting.");
 	}
 
-	return std::make_tuple(params, publicKey, privateKey);
+	return std::make_tuple(publicKey, privateKey, params);
 }
 
 // Sign a transaction with the sender's private key

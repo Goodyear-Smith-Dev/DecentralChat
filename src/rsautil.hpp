@@ -13,7 +13,7 @@ using CryptoPP::RSA;
 namespace decentralchat::rsa {
 	enum class EncodingType {HEX, BASE64};
 
-	std::tuple<CryptoPP::InvertibleRSAFunction, RSA::PublicKey, RSA::PrivateKey> generateKeys() noexcept(false);
+	std::tuple<RSA::PublicKey, RSA::PrivateKey, CryptoPP::InvertibleRSAFunction> generateKeys() noexcept(false);
 
 	CryptoPP::SecByteBlock sign(const std::string& message, const RSA::PrivateKey& privateKey) noexcept(false);
 	bool verify(const std::string& message, const CryptoPP::SecByteBlock& signature, const RSA::PublicKey& publicKey);
