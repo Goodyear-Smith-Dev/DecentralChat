@@ -16,7 +16,7 @@ MainWindow::MainWindow(QWidget* parent):
     m_UI->setupUi(this);
 
     //check for account file
-    
+
     if (0) { //placeholder for check
         //account file found
         m_UI->stackedWidget->setCurrentIndex(static_cast<int>(Page::LOGIN));
