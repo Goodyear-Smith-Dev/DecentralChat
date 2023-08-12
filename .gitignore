@@ -60,6 +60,7 @@ CMakeLists.txt.user*
 *.opensdf
 *.vscode
 *.vs
+x64
 
 # MinGW generated files
 *.Debug

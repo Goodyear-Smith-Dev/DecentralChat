@@ -130,7 +130,7 @@
 #endif
 
 // how to disable inlining
-#if defined(CRYPTOPP_MSC_VERSION)
+#if defined(_MSC_VER)
 #	define CRYPTOPP_NOINLINE_DOTDOTDOT
 #	define CRYPTOPP_NOINLINE __declspec(noinline)
 #elif defined(__xlc__) || defined(__xlC__) || defined(__ibmxl__)
@@ -169,14 +169,14 @@
 #endif
 
 // Warnings
-#ifdef CRYPTOPP_MSC_VERSION
+#ifdef _MSC_VER
 	// 4127: conditional expression is constant
 	// 4512: assignment operator not generated
 	// 4661: no suitable definition provided for explicit template instantiation request
 	// 4910: '__declspec(dllexport)' and 'extern' are incompatible on an explicit instantiation
 #	pragma warning(disable: 4127 4512 4661 4910)
-	// CRYPTOPP_MSC_VERSION 1920 is VS2019
-#	if CRYPTOPP_MSC_VERSION >= 1920
+	// _MSC_VER 1920 is VS2019
+#	if _MSC_VER >= 1920
 		// 5054: operator '|': deprecated between enumerations of different types
 #		pragma warning(disable: 5054)
 #	endif
