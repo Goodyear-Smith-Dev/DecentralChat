@@ -47,7 +47,6 @@ public:
 	inline uint16_t getPort() const;
 
 private:
-	QTcpServer* m_TcpServer;
 	QTcpSocket* m_CurrentSocket = new QTcpSocket();
 
 	QHostAddress m_HostAddress;
