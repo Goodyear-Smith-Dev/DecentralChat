@@ -116,6 +116,7 @@
   <ItemGroup>
     <ClCompile Include="src\aesutil.cpp" />
     <ClCompile Include="src\hashing.cpp" />
+    <ClCompile Include="src\qt\decentralchat-qt\account.cpp" />
     <ClCompile Include="src\qt\decentralchat-qt\client.cpp" />
     <ClCompile Include="src\qt\decentralchat-qt\link.cpp" />
     <ClCompile Include="src\qt\decentralchat-qt\main.cpp" />
@@ -127,6 +128,7 @@
   <ItemGroup>
     <ClInclude Include="src\aesutil.hpp" />
     <ClInclude Include="src\hashing.hpp" />
+    <ClInclude Include="src\qt\decentralchat-qt\account.hpp" />
     <ClInclude Include="src\qt\decentralchat-qt\enums.hpp" />
     <ClInclude Include="src\qt\decentralchat-qt\styles.hpp" />
     <QtMoc Include="src\qt\decentralchat-qt\server.hpp" />
