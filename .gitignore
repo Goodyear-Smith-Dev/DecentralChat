@@ -61,6 +61,8 @@ CMakeLists.txt.user*
 *.vscode
 *.vs
 x64
+debug/
+release/
 
 # MinGW generated files
 *.Debug
