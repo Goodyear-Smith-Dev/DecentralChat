@@ -32,7 +32,7 @@
 # pragma warning(disable: 4505 4355)
 #endif
 
-#ifdef CRYPTOPP_MSC_VERSION
+#ifdef _MSC_VER
 # define STRTOUL64 _strtoui64
 #else
 # define STRTOUL64 strtoull

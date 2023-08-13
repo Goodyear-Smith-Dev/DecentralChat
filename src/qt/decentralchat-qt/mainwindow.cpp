@@ -61,6 +61,8 @@ MainWindow::MainWindow(QWidget* parent):
 
 MainWindow::~MainWindow() {
     delete m_UI;
+	delete m_Server;
+	delete m_Client;
 }
 
 void MainWindow::handleCreateAccount() {

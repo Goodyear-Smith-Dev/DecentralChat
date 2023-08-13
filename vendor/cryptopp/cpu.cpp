@@ -16,7 +16,7 @@
 
 // For _xgetbv on Microsoft 32-bit and 64-bit Intel platforms
 // https://github.com/weidai11/cryptopp/issues/972
-#if (CRYPTOPP_MSC_VERSION >= 1600) && (defined(_M_IX86) || defined(_M_X64))
+#if _MSC_VER >= 1600 && (defined(_M_IX86) || defined(_M_X64))
 # include <immintrin.h>
 #endif
 
@@ -78,10 +78,9 @@ unsigned long int getauxval(unsigned long int) { return 0; }
 # include <setjmp.h>
 #endif
 
-// Required by Visual Studio 2008 and below and Clang on Windows.
-// Use it for all MSVC-compatible compilers.
-// XGETBV64 and CPUID64 are in x64dll.asm.
-#if defined(_M_X64) && defined(CRYPTOPP_MS_STYLE_INLINE_ASSEMBLY)
+// Visual Studio 2008 and below are missing _xgetbv and _cpuidex.
+// The 32-bit versions use inline ASM below. The 64-bit versions are in x64dll.asm.
+#if defined(_MSC_VER) && defined(_M_X64)
 extern "C" unsigned long long __fastcall XGETBV64(unsigned int);
 extern "C" unsigned long long __fastcall CPUID64(unsigned int, unsigned int, unsigned int*);
 #endif
@@ -388,15 +387,19 @@ extern bool CPU_ProbeSSE2();
 // https://gcc.gnu.org/bugzilla/show_bug.cgi?id=85684.
 word64 XGetBV(word32 num)
 {
-// Required by Visual Studio 2008 and below and Clang on Windows.
-// Use it for all MSVC-compatible compilers.
-#if defined(_M_X64) && defined(CRYPTOPP_MS_STYLE_INLINE_ASSEMBLY)
+// Visual Studio 2010 SP1 and above, 32 and 64-bit
+// https://github.com/weidai11/cryptopp/issues/972
+#if defined(_MSC_VER) && (_MSC_FULL_VER >= 160040219)
+
+	return _xgetbv(num);
+
+// Visual Studio 2008 and below, 64-bit
+#elif defined(_MSC_VER) && defined(_M_X64)
 
 	return XGETBV64(num);
 
-// Required by Visual Studio 2008 and below and Clang on Windows.
-// Use it for all MSVC-compatible compilers.
-#elif defined(_M_IX86) && defined(CRYPTOPP_MS_STYLE_INLINE_ASSEMBLY)
+// Visual Studio 2008 and below, 32-bit
+#elif defined(_MSC_VER) && defined(_M_IX86)
 
 	word32 a=0, d=0;
 	__asm {
@@ -446,16 +449,20 @@ word64 XGetBV(word32 num)
 // cpu.cpp (131): E2211 Inline assembly not allowed in inline and template functions
 bool CpuId(word32 func, word32 subfunc, word32 output[4])
 {
-// Required by Visual Studio 2008 and below and Clang on Windows.
-// Use it for all MSVC-compatible compilers.
-#if defined(_M_X64) && defined(CRYPTOPP_MS_STYLE_INLINE_ASSEMBLY)
+// Visual Studio 2010 and above, 32 and 64-bit
+#if defined(_MSC_VER) && (_MSC_VER >= 1600)
+
+	__cpuidex((int *)output, func, subfunc);
+	return true;
+
+// Visual Studio 2008 and below, 64-bit
+#elif defined(_MSC_VER) && defined(_M_X64)
 
 	CPUID64(func, subfunc, output);
 	return true;
 
-// Required by Visual Studio 2008 and below and Clang on Windows.
-// Use it for all MSVC-compatible compilers.
-#elif defined(_M_IX86) && defined(CRYPTOPP_MS_STYLE_INLINE_ASSEMBLY)
+// Visual Studio 2008 and below, 32-bit
+#elif (defined(_MSC_VER) && defined(_M_IX86)) || defined(__BORLANDC__)
 
 	__try
 	{
@@ -592,12 +599,10 @@ void DetectX86Features()
 		            (cpuid1[ECX_REG] & OSXSAVE_FLAG) != 0;
 #endif
 
-#if defined(__sun)
 	// Solaris 11 i86pc does not signal SSE support using
 	// OSXSAVE. We need to probe for SSE support.
 	if (g_hasSSE2 == false)
 		g_hasSSE2 = CPU_ProbeSSE2();
-#endif
 
 	if (g_hasSSE2 == false)
 		goto done;

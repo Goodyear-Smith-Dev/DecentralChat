@@ -221,11 +221,7 @@ endif
 
 # We honor ARFLAGS, but the "v" option used by default causes a noisy make
 ifeq ($(ARFLAGS),rv)
-  ARFLAGS = r
-else
-  ifeq ($(ARFLAGS),-rv)
-    ARFLAGS = -r
-  endif
+ARFLAGS = r
 endif
 
 # Original MinGW targets Win2k by default, but lacks proper Win2k support
@@ -1544,7 +1540,7 @@ cryptopp.pc libcryptopp.pc:
 	@echo '' >> libcryptopp.pc
 	@echo 'Name: Crypto++' >> libcryptopp.pc
 	@echo 'Description: Crypto++ cryptographic library' >> libcryptopp.pc
-	@echo 'Version: 8.9' >> libcryptopp.pc
+	@echo 'Version: 8.8' >> libcryptopp.pc
 	@echo 'URL: https://cryptopp.com/' >> libcryptopp.pc
 	@echo '' >> libcryptopp.pc
 	@echo 'Cflags: -I$${includedir}' >> libcryptopp.pc
