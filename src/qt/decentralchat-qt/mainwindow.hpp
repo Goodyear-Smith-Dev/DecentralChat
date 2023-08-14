@@ -15,13 +15,16 @@
 // You should have received a copy of the GNU General Public License along
 // with this program. If not, see <https://www.gnu.org/licenses/>
 //
+// Filename: mainwindow.hpp
+// Description: The main application window
+//
 
 #pragma once
 
+#include <QMainWindow>
+
 #include "client.hpp"
 #include "server.hpp"
-
-#include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -29,7 +32,7 @@ namespace Ui {
 }
 QT_END_NAMESPACE
 
-class MainWindow : public QMainWindow {
+class MainWindow: public QMainWindow {
     Q_OBJECT
 
 public:

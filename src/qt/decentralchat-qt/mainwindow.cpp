@@ -1,12 +1,35 @@
+//
+// This file is part of DecentralChat
+// Copyright (C) 2023 Ryan Smith, Jake Goodyear
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 3 of the License, or any
+// later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License along
+// with this program. If not, see <https://www.gnu.org/licenses/>
+//
+// Filename: mainwindow.cpp
+// Description: The main application window
+//
+
+#include <QList>
+#include <QStackedWidget>
+
 #include "account.hpp"
 #include "client.hpp"
 #include "link.hpp"
 #include "mainwindow.hpp"
 #include "server.hpp"
-#include "ui_decentralchat.h"
+#include "chat-dialog.hpp"
 
-#include <QList>
-#include <QStackedWidget>
+#include "ui_decentralchat.h"
 
 #define LOCAL_ACCT_FILE "local.acct"
 
@@ -21,7 +44,9 @@ MainWindow::MainWindow(QWidget* parent):
     //connect slots to signals
     connect(m_UI->p_cA_createButton, &QPushButton::released, this, &MainWindow::handleCreateAccount);
     connect(m_UI->p_login_loginButton, &QPushButton::released, this, &MainWindow::handleLogin);
-
+	connect(m_UI->p_main_addDest, &QPushButton::released, this, [] {
+		ChatDialog().exec();
+	});
 
     //check for account file
     decentralchat::accounts::Account* acct = nullptr;
@@ -68,7 +93,7 @@ void MainWindow::handleCreateAccount() {
     QString name = m_UI->p_cA_nameInput->text();
     QString password = m_UI->p_cA_passwordInput->text();
 
-    
+
     //reprompt if invalid
     if (name.isEmpty()) {
         m_UI->p_cA_invalid->setText("Account Name is required.");
