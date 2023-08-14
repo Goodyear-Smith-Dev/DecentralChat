@@ -155,8 +155,8 @@ std::string rsa::keyToBase64(const CryptoPP::RSAFunction& key) {
 	return base64Key;
 }
 
-CryptoPP::RSAFunction rsa::keyFromBase64(const std::string& base64Key) {
-	CryptoPP::RSAFunction key;
+CryptoPP::InvertibleRSAFunction rsa::keyFromBase64(const std::string& base64Key) {
+	CryptoPP::InvertibleRSAFunction key;
 
 	CryptoPP::StringSource source(base64Key, true, new CryptoPP::Base64Decoder);
 	key.BERDecode(source);

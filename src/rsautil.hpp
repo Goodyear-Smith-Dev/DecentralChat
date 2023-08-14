@@ -30,5 +30,5 @@ namespace decentralchat::rsa {
 	void saveKey(const CryptoPP::RSAFunction& key, const std::string& filename, EncodingType encodingType = EncodingType::BASE64);
 
 	std::string keyToBase64(const CryptoPP::RSAFunction& key);
-	CryptoPP::RSAFunction keyFromBase64(const std::string& base64Key);
+	CryptoPP::InvertibleRSAFunction keyFromBase64(const std::string& base64Key);
 }
