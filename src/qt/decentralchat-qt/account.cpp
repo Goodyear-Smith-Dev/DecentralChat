@@ -1,13 +1,14 @@
-#include "../../aesutil.hpp"
-#include "account.hpp"
-#include "../../hashing.hpp"
-#include "../../rsautil.hpp"
-
 #include <chrono>
+#include <cstdlib>
+
+#include <QStringDecoder>
+
 #include <cryptopp/modes.h>
 #include <cryptopp/osrng.h>
-#include <cstdlib>
-#include <QStringDecoder>
+
+#include "account.hpp"
+#include "hashing.hpp"
+#include "rsautil.hpp"
 
 //converts x to char*
 #define TO_BYTES(x) static_cast<char*>(static_cast<void*>(&x))
@@ -21,15 +22,15 @@ namespace accounts = decentralchat::accounts;
 namespace hashing = decentralchat::hashing;
 namespace rsa = decentralchat::rsa;
 
-accounts::Account::Account(ushort version, uint64_t id, QByteArray iv, QString name, QString displayName, QString publicKey, QByteArray encrypted) {
-    this->version = version;
-    this->id = id;
-    this->iv = iv;
-    this->name = name;
-    this->displayName = displayName;
-    this->publicKey = publicKey;
-    this->encrypted = encrypted;
-}
+accounts::Account::Account(uint16_t version, uint64_t id, const QByteArray& iv, const QString& name, const QString& displayName, const QString& publicKey, const QByteArray& encrypted):
+	version(version),
+    id(id),
+    iv(iv),
+    name(name),
+    displayName(displayName),
+    publicKey(publicKey),
+    encrypted(encrypted)
+{}
 
 QByteArray accounts::Account::toBytes() {
     QByteArray bytes;
@@ -50,7 +51,7 @@ QByteArray accounts::Account::toBytes() {
 
     uint encrypted_l = encrypted.length();
 
-    ushort version = LATEST_ACCOUNT_VERSION;
+    uint16_t version = LATEST_ACCOUNT_VERSION;
     bytes.append(TO_BYTES(version), 2);
     bytes.append(TO_BYTES(id), 8);
     bytes.append(TO_BYTES(name_l), 4);
@@ -74,7 +75,7 @@ bool accounts::Account::decrypt(const std::string& password, accounts::Decrypted
 
             CryptoPP::SecByteBlock hashword(CryptoPP::SHA256::DIGESTSIZE);
             CryptoPP::SHA256().CalculateDigest(hashword, reinterpret_cast<const CryptoPP::byte*>(password.c_str()), password.length());
-            
+
             //key and iv from hex
 
             QString decryptedData;
@@ -85,7 +86,9 @@ bool accounts::Account::decrypt(const std::string& password, accounts::Decrypted
                     TO_SECBYTES(iv.data(), iv.size())
                 ));
             }
-            catch(...) { return false; }
+            catch(...) {
+				return false;
+			}
 
             decrypted = accounts::DecryptedData{ decryptedData.sliced(0, password.length()), decryptedData.sliced(password.length()) };
 
@@ -151,7 +154,10 @@ accounts::Account* accounts::create(QString name, QString displayName, QString p
         //NOTE: this lags the ui thread (main thread)
         //std::tie(pre_publicKey, pre_privateKey, params) = rsa::generateKeys();
     }
-    catch(...) { return nullptr; }
+    catch(...) {
+		return nullptr;
+	}
+
     QString publicKey = "";//QString::fromStdString(rsa::keyToBase64(pre_publicKey));
     QString privateKey = "";//QString::fromStdString(rsa::keyToBase64(pre_privateKey));
 
@@ -163,7 +169,9 @@ accounts::Account* accounts::create(QString name, QString displayName, QString p
         rng.GenerateBlock(iv, iv.size());
         data = accounts::encrypt(decrypted, iv);
     }
-    catch(...) { return nullptr; }
+    catch(...) {
+		return nullptr;
+	}
 
     return new Account(
         LATEST_ACCOUNT_VERSION,
@@ -183,7 +191,7 @@ uint64_t accounts::generateId() {
 }
 
 accounts::Account* accounts::fromBytes(const QByteArray& bytes) {
-    ushort version = *FROM_BYTES(ushort, bytes.sliced(0, 2).data()); //len 2
+    uint16_t version = *FROM_BYTES(uint16_t, bytes.sliced(0, 2).data()); //len 2
     switch (version) {
         case 1: {
             uint64_t id = *FROM_BYTES(uint64_t, bytes.sliced(2, 8).data()); //len 8

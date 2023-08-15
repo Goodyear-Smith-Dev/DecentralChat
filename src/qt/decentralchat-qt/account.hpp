@@ -1,17 +1,18 @@
 #pragma once
 
-#include "../../aesutil.hpp"
-
 #include <string>
+
 #include <QByteArray>
 #include <QFile>
 #include <QString>
 
-#define LATEST_ACCOUNT_VERSION 1
+#include "aesutil.hpp"
 
 namespace decentralchat::accounts {
+	constexpr uint16_t LATEST_ACCOUNT_VERSION = 1;
+	constexpr const char* LOCAL_ACCT_FILE = "local.acct";
 
-    //Decrypted private account data
+    // Decrypted private account data
     struct DecryptedData {
         QString password;
         QString privateKey;
@@ -19,8 +20,7 @@ namespace decentralchat::accounts {
 
     class Account {
     public:
-
-        Account(ushort version, uint64_t id, QByteArray iv, QString name, QString displayName, QString publicKey, QByteArray encrypted);
+        Account(uint16_t version, uint64_t id, const QByteArray& iv, const QString& name, const QString& displayName, const QString& publicKey, const QByteArray& encrypted);
 
         //Convert the account's state to bytes
         QByteArray toBytes();
@@ -29,19 +29,19 @@ namespace decentralchat::accounts {
         //Write the account bytes (unhashed) + hashed + signature
         void save(QFile& file, const std::string& password) noexcept(false);
 
-        ushort getVersion() const { return version; }
+        uint16_t getVersion() const { return version; }
         uint64_t getId() const { return id; }
-        QByteArray getIv() const { return iv; }
-        QString getName() const { return name; }
-        QString getDisplayName() const { return displayName; }
+        const QByteArray& getIv() const { return iv; }
+        const QString& getName() const { return name; }
+        const QString& getDisplayName() const { return displayName; }
         void setDisplayName(QString displayName);
-        QString getPublicKey() const { return publicKey; }
-        QByteArray getEncrypted() const { return encrypted; }
-        void setEncrypted(QByteArray encrypted);
-        void setEncrypted(DecryptedData& decrypted) noexcept(false);
+        const QString& getPublicKey() const { return publicKey; }
+        const QByteArray& getEncrypted() const { return encrypted; }
+        void setEncrypted(const QByteArray& encrypted);
+        void setEncrypted(const DecryptedData& decrypted) noexcept(false);
 
     private:
-        ushort version;
+        uint16_t version;
         uint64_t id;
         QByteArray iv;
         QString name;

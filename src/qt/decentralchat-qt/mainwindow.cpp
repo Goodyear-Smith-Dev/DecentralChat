@@ -8,7 +8,7 @@
 #include <QList>
 #include <QStackedWidget>
 
-#define LOCAL_ACCT_FILE "local.acct"
+using decentralchat::accounts::LOCAL_ACCT_FILE;
 
 MainWindow::MainWindow(QWidget* parent):
 	QMainWindow(parent),
@@ -70,7 +70,7 @@ void MainWindow::handleCreateAccount() {
     QString name = m_UI->p_cA_nameInput->text();
     QString password = m_UI->p_cA_passwordInput->text();
 
-    
+
     //reprompt if invalid
     if (name.isEmpty()) {
         m_UI->p_cA_invalid->setText("Account Name is required.");
@@ -83,15 +83,16 @@ void MainWindow::handleCreateAccount() {
     m_UI->p_login_invalid->clear();
     m_UI->p_login_nameInput->clear();
     m_UI->p_login_passwordInput->clear();
-    
+
     decentralchat::accounts::Account* acct = decentralchat::accounts::create(name, "", password);
-    if (acct==nullptr) {
+	if (!acct) {
         m_UI->p_cA_invalid->setText("Failed to create account.");
         return;
     }
+
     QFile localAcct(LOCAL_ACCT_FILE); //TODO find a better place to put this than right next to the exe
     acct->save(localAcct, password.toStdString());
-    //delete acct;
+    delete acct;
 
     m_UI->stackedWidget->setCurrentIndex(static_cast<int>(Page::MAIN));
 
@@ -103,12 +104,13 @@ void MainWindow::handleLogin() {
 
     QFile localAcct(LOCAL_ACCT_FILE);
     decentralchat::accounts::Account* acct = decentralchat::accounts::load(localAcct);
-    if (acct==nullptr) {
+    if (!acct) {
         //go to create account page, reprompt
         m_UI->p_cA_invalid->setText("No account found. Consider creating a new account.");
         m_UI->stackedWidget->setCurrentIndex(static_cast<int>(Page::CREATE_ACCOUNT));
         return;
     }
+	
     decentralchat::accounts::DecryptedData decrypted;
     if (!(acct->getName() == name && acct->decrypt(password.toStdString(), decrypted))) {
         m_UI->p_login_invalid->setText("Invalid Account Name or Password.");
