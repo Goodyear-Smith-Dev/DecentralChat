@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="i18n">
+        <file alias="DecentralChat_es_MX.qm">../../build/.qm/DecentralChat_es_MX.qm</file>
+    </qresource>
+    <qresource prefix="/styles">
+        <file alias="decentralchat.qss">styles/decentralchat.qss</file>
+        <file alias="decentralchat.light.style">styles/decentralchat.light.style</file>
+        <file alias="decentralchat.dark.style">styles/decentralchat.dark.style</file>
+    </qresource>
+    <qresource prefix="/images">
+        <file alias="close_icon_32.light.png">images/close_icon_32.light.png</file>
+        <file alias="close_icon_32.dark.png">images/close_icon_32.dark.png</file>
+        <file alias="add_icon_32.light.png">images/add_icon_32.light.png</file>
+        <file alias="add_icon_32.dark.png">images/add_icon_32.dark.png</file>
+        <file alias="settings_icon_32.light.png">images/settings_icon_32.light.png</file>
+        <file alias="settings_icon_32.dark.png">images/settings_icon_32.dark.png</file>
+    </qresource>
+</RCC>
