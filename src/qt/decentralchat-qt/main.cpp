@@ -1,6 +1,8 @@
 #include "mainwindow.hpp"
 #include "styles.hpp"
 
+#include "trie.hpp"
+
 #include <QApplication>
 #include <QFile>
 #include <QLatin1String>
@@ -45,6 +47,13 @@ int main(int argc, char *argv[])
             break;
         }
     }
+
+	Trie trie;
+	trie.insert("hello");
+
+	std::cout << trie.search("hello") << "\n";
+	std::cout << trie.search("he") << "\n";
+	std::cout << trie.search("hi") << "\n";
 
     MainWindow window;
     window.show();
