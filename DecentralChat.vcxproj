@@ -111,6 +111,8 @@
     <QtUic Include="src\qt\ui\decentralchat.ui" />
   </ItemGroup>
   <ItemGroup>
+    <QtRcc Include="src\qt\resources-unix.qrc" />
+    <QtRcc Include="src\qt\resources-win.qrc" />
     <QtRcc Include="src\qt\resources.qrc" />
   </ItemGroup>
   <ItemGroup>
@@ -128,6 +130,7 @@
   <ItemGroup>
     <ClInclude Include="src\aesutil.hpp" />
     <ClInclude Include="src\hashing.hpp" />
+    <ClInclude Include="src\osdetect.h" />
     <ClInclude Include="src\qt\decentralchat-qt\account.hpp" />
     <ClInclude Include="src\qt\decentralchat-qt\enums.hpp" />
     <ClInclude Include="src\qt\decentralchat-qt\styles.hpp" />
@@ -138,11 +141,18 @@
     <ClInclude Include="src\rsautil.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include=".editorconfig" />
+    <None Include=".gitignore" />
+    <None Include=".gitmodules" />
+    <None Include="linux-build.sh" />
+    <None Include="macos-build.sh" />
+    <None Include="src\qt\decentralchat-qt\DecentralChat.pri" />
     <None Include="src\qt\decentralchat-qt\DecentralChat.pro" />
     <None Include="src\qt\decentralchat-qt\DecentralChat_es.qm" />
     <None Include="src\qt\styles\decentralchat.dark.style" />
     <None Include="src\qt\styles\decentralchat.light.style" />
     <None Include="src\qt\styles\decentralchat.qss" />
+    <None Include="windows-build.bat" />
   </ItemGroup>
   <ItemGroup>
     <QtTranslation Include="src\qt\decentralchat-qt\DecentralChat_es_MX.ts" />
@@ -154,6 +164,9 @@
     <Image Include="src\qt\images\close_icon_32.light.png" />
     <Image Include="src\qt\images\settings_icon_32.dark.png" />
     <Image Include="src\qt\images\settings_icon_32.light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="LICENSE.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

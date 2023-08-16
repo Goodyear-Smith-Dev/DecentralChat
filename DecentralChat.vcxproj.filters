@@ -31,6 +31,12 @@
     <QtRcc Include="src\qt\resources.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
+    <QtRcc Include="src\qt\resources-unix.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
+    <QtRcc Include="src\qt\resources-win.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\aesutil.cpp">
@@ -83,6 +89,9 @@
     <ClInclude Include="src\qt\decentralchat-qt\account.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\osdetect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="src\qt\decentralchat-qt\client.hpp">
@@ -104,6 +113,15 @@
     <None Include="src\qt\styles\decentralchat.dark.style" />
     <None Include="src\qt\styles\decentralchat.light.style" />
     <None Include="src\qt\styles\decentralchat.qss" />
+    <None Include=".editorconfig" />
+    <None Include=".gitignore" />
+    <None Include=".gitmodules" />
+    <None Include="linux-build.sh" />
+    <None Include="macos-build.sh" />
+    <None Include="windows-build.bat">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="src\qt\decentralchat-qt\DecentralChat.pri" />
   </ItemGroup>
   <ItemGroup>
     <QtTranslation Include="src\qt\decentralchat-qt\DecentralChat_es_MX.ts">
@@ -129,5 +147,8 @@
     <Image Include="src\qt\images\settings_icon_32.light.png">
       <Filter>Resource Files</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="LICENSE.txt" />
   </ItemGroup>
 </Project>
