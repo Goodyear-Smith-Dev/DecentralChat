@@ -15,38 +15,38 @@
 
 int main(int argc, char *argv[])
 {
-    QApplication app(argc, argv);
+	QApplication app(argc, argv);
 
-    //load qss sheet
+	//load qss sheet
 
-    QFile sheetFile(":/styles/decentralchat.qss");
-    sheetFile.open(QFile::ReadOnly);
-    QString stylesheet = QLatin1String(sheetFile.readAll());
-    sheetFile.close();
+	QFile sheetFile(":/styles/decentralchat.qss");
+	sheetFile.open(QFile::ReadOnly);
+	QString stylesheet = QLatin1String(sheetFile.readAll());
+	sheetFile.close();
 
-    //load stylevars
+	//load stylevars
 
-    QFile styleFile(":/styles/decentralchat.dark.style");
-    decentralchat::styles::stylevars vars;
-    decentralchat::styles::loadStyleVars(styleFile, vars); //opens and closes file
+	QFile styleFile(":/styles/decentralchat.dark.style");
+	decentralchat::styles::stylevars vars;
+	decentralchat::styles::loadStyleVars(styleFile, vars); //opens and closes file
 
-    //apply stylevars to stylesheet
+	//apply stylevars to stylesheet
 
-    stylesheet = decentralchat::styles::applyStyle(stylesheet, vars);
+	stylesheet = decentralchat::styles::applyStyle(stylesheet, vars);
 
-    //set stylesheet
+	//set stylesheet
 
-    app.setStyleSheet(stylesheet);
+	app.setStyleSheet(stylesheet);
 
-    QTranslator translator;
-    const QStringList uiLanguages = QLocale::system().uiLanguages();
-    for (const QString& locale: uiLanguages) {
-        const QString baseName = "DecentralChat_" + QLocale(locale).name();
-        if (translator.load(":/i18n/" + baseName)) {
-            app.installTranslator(&translator);
-            break;
-        }
-    }
+	QTranslator translator;
+	const QStringList uiLanguages = QLocale::system().uiLanguages();
+	for (const QString& locale: uiLanguages) {
+		const QString baseName = "DecentralChat_" + QLocale(locale).name();
+		if (translator.load(":/i18n/" + baseName)) {
+			app.installTranslator(&translator);
+			break;
+		}
+	}
 
 	Trie trie;
 	trie.insert("hello");
