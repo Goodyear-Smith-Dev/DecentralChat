@@ -105,27 +105,27 @@ void accounts::Account::save(QFile& file, const std::string& password) noexcept(
         return;
 
     //write bytes size + bytes
-    /*const QByteArray bytes = toBytes();
+    const QByteArray bytes = toBytes();
     uint bytes_l = bytes.size();
     file.write(TO_BYTES(bytes_l), 4);
-    file.write(bytes);*/
+    file.write(bytes);
 
     //write hash (always 256)
 
-    /*CryptoPP::byte hash[CryptoPP::SHA256::DIGESTSIZE];
+    CryptoPP::byte hash[CryptoPP::SHA256::DIGESTSIZE];
     CryptoPP::SHA256().CalculateDigest(hash, reinterpret_cast<const CryptoPP::byte*>(bytes.data()), bytes.size());
     const char* charhash = reinterpret_cast<char*>(hash);
-    file.write(charhash, CryptoPP::SHA256::DIGESTSIZE);*/
+    file.write(charhash, CryptoPP::SHA256::DIGESTSIZE);
 
     //write signature
 
-    /*DecryptedData decrypted;
+    DecryptedData decrypted;
     if (!decrypt(password, decrypted))
         return; //TODO fail
 
     CryptoPP::RSA::PrivateKey privateKey = rsa::keyFromBase64(decrypted.privateKey.toStdString());
     CryptoPP::SecByteBlock signature = rsa::sign(std::string(charhash), privateKey);
-    file.write(reinterpret_cast<const char*>(signature.data()), signature.size());*/
+    file.write(reinterpret_cast<const char*>(signature.data()), signature.size());
 
     file.close();
 }
@@ -134,11 +134,11 @@ void accounts::Account::setDisplayName(QString displayName) {
     this->displayName = displayName;
 }
 
-void accounts::Account::setEncrypted(QByteArray encrypted) {
+void accounts::Account::setEncrypted(const QByteArray& encrypted) {
     this->encrypted = encrypted;
 }
 
-void accounts::Account::setEncrypted(accounts::DecryptedData& decrypted) noexcept(false) {
+void accounts::Account::setEncrypted(const accounts::DecryptedData& decrypted) noexcept(false) {
     aes::AESData data = accounts::encrypt(decrypted, TO_SECBYTES(iv.data(), iv.size()));
     setEncrypted(QByteArray(data.ciphertext.c_str(), data.ciphertext.size()));
 }
