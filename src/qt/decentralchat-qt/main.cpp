@@ -48,13 +48,6 @@ int main(int argc, char *argv[])
 		}
 	}
 
-	Trie trie;
-	trie.insert("hello");
-
-	std::cout << trie.search("hello") << "\n";
-	std::cout << trie.search("he") << "\n";
-	std::cout << trie.search("hi") << "\n";
-
     MainWindow window;
     window.show();
     return app.exec();
