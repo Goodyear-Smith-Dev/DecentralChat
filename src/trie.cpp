@@ -20,12 +20,15 @@
 //
 
 #include "trie.hpp"
+#include <iostream>
 
 Trie::Trie():
 	m_Root(new TrieNode)
 {}
 
-Trie::Trie(std::initializer_list<key_type> keys) {
+Trie::Trie(std::initializer_list<key_type> keys):
+	Trie()
+{
 	for (const auto& key: keys) {
 		insert(key);
 	}
@@ -56,7 +59,27 @@ void Trie::insert(const key_type& key) {
 }
 
 // Search for a key in the trie. Return true if it exists, false otherwise
-bool Trie::search(const key_type& key) const {
+bool Trie::search(const key_type& key, bool matchSubKeys) const {
+	TrieNode* currentNode = m_Root;
+	bool substrExists = matchSubKeys;
+
+	for (value_type letter: key) {
+		int index = letter - 'a';
+
+		if (matchSubKeys) {
+			substrExists = (*currentNode)[index] != nullptr;
+			if (!substrExists) {
+				return false;
+			}
+		}
+
+		currentNode = (*currentNode)[index];
+	}
+
+	return currentNode->isEnd() || substrExists;
+}
+
+Trie::TrieNode* Trie::getNode(const key_type& key) const {
 	TrieNode* currentNode = m_Root;
 	bool substrExists = true;
 
@@ -65,11 +88,40 @@ bool Trie::search(const key_type& key) const {
 
 		substrExists = (*currentNode)[index] != nullptr;
 		if (!substrExists) {
-			return false;
+			return nullptr;
 		}
 
 		currentNode = (*currentNode)[index];
 	}
 
-	return currentNode->isEnd() || substrExists;
+	return (currentNode->isEnd() || substrExists)? currentNode : nullptr;
+}
+
+std::vector<Trie::key_type> Trie::findMatches(const key_type& subkey) {
+	auto node = getNode(subkey);
+	std::vector<key_type> result;
+
+	for (int i = 0; i < __dc_detail::ALPHABET_SIZE; i++) {
+		// Skip any empty (null) children
+		if (!(*node)[i]) {
+			continue;
+		}
+
+		std::string newSubKey = subkey + static_cast<char>(i + 'a'); // Get the next letter of the word
+		std::cout << "Searching: " << newSubKey << "\n";
+
+		// Search the new subkey to see if it's the end of a word
+		if (search(newSubKey, false)) {
+			std::cout << "Found match for " << newSubKey << "\n";
+			result.push_back(newSubKey);
+		}
+
+		// Add any found matches to the main result vector
+		if (auto matches = findMatches(newSubKey); !matches.empty()) {
+			result.reserve(matches.size());
+			result.insert(result.end(), matches.begin(), matches.end());
+		}
+}
+
+	return result;
 }

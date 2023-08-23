@@ -25,6 +25,7 @@
 #include <cstdlib>
 #include <initializer_list>
 #include <string>
+#include <vector>
 
 namespace __dc_detail {
 	constexpr static int ALPHABET_SIZE = 26;
@@ -80,11 +81,12 @@ class Trie {
 public:
 	Trie();
 	Trie(std::initializer_list<key_type> keys);
-
 	~Trie();
 
 	void insert(const key_type& key);
-	bool search(const key_type& key) const;
+	bool search(const key_type& key, bool matchSubKeys = true) const;
+	TrieNode* getNode(const key_type& key) const;
+	std::vector<key_type> findMatches(const key_type& subkey);
 
 private:
 	TrieNode* m_Root;
