@@ -81,6 +81,7 @@ class Trie {
 public:
 	Trie();
 	Trie(std::initializer_list<key_type> keys);
+	explicit Trie(const std::vector<key_type>& keys);
 	~Trie();
 
 	void insert(const key_type& key);
