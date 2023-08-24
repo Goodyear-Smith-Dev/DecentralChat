@@ -1,8 +1,6 @@
 #include "mainwindow.hpp"
 #include "styles.hpp"
 
-#include "trie.hpp"
-
 #include <QApplication>
 #include <QFile>
 #include <QLatin1String>
