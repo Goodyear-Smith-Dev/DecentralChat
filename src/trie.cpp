@@ -27,6 +27,10 @@ Trie::Trie():
 {}
 
 Trie::Trie(std::initializer_list<key_type> keys):
+	Trie(std::vector(keys))
+{}
+
+Trie::Trie(const std::vector<key_type>& keys):
 	Trie()
 {
 	for (const auto& key: keys) {
@@ -98,8 +102,12 @@ Trie::TrieNode* Trie::getNode(const key_type& key) const {
 }
 
 std::vector<Trie::key_type> Trie::findMatches(const key_type& subkey) {
-	auto node = getNode(subkey);
+	auto node = getNode(subkey); // Start at the given subkey
 	std::vector<key_type> result;
+
+	if (!search(subkey)) {
+		return result;
+	}
 
 	for (int i = 0; i < __dc_detail::ALPHABET_SIZE; i++) {
 		// Skip any empty (null) children
@@ -108,11 +116,9 @@ std::vector<Trie::key_type> Trie::findMatches(const key_type& subkey) {
 		}
 
 		std::string newSubKey = subkey + static_cast<char>(i + 'a'); // Get the next letter of the word
-		std::cout << "Searching: " << newSubKey << "\n";
 
 		// Search the new subkey to see if it's the end of a word
 		if (search(newSubKey, false)) {
-			std::cout << "Found match for " << newSubKey << "\n";
 			result.push_back(newSubKey);
 		}
 
@@ -121,7 +127,7 @@ std::vector<Trie::key_type> Trie::findMatches(const key_type& subkey) {
 			result.reserve(matches.size());
 			result.insert(result.end(), matches.begin(), matches.end());
 		}
-}
+	}
 
 	return result;
 }
