@@ -23,13 +23,36 @@
 
 #include "ui_createchat.h"
 
-ChatDialog::ChatDialog(QWidget* parent, Qt::WindowFlags flags):
+ChatDialog::ChatDialog(const std::vector<std::string>& searchList, QWidget* parent, Qt::WindowFlags flags):
 	QDialog(parent, flags),
-	m_ChatDialog(new Ui::ChatDialog)
+	m_ChatDialog(new Ui::ChatDialog),
+	m_Trie(new Trie(searchList))
 {
 	m_ChatDialog->setupUi(this);
+
+	setListContent(searchList);
+
+	connect(m_ChatDialog->search, &QTextEdit::textChanged, this, [=] {
+		auto matches = m_Trie->findMatches(this->m_ChatDialog->search->toPlainText().toStdString());
+		this->setListContent(matches);
+	});
 }
 
 ChatDialog::~ChatDialog() {
 	delete m_ChatDialog;
+	delete m_Trie;
+}
+
+void ChatDialog::setListContent(const std::vector<std::string>& content) {
+	if (m_ChatDialog->friendsList->count() > 0) {
+		m_ChatDialog->friendsList->clear();
+	}
+
+	if (content.empty()) {
+		return;
+	}
+
+	for (const auto& item: content) {
+		m_ChatDialog->friendsList->addItem(QString::fromStdString(item));
+	}
 }

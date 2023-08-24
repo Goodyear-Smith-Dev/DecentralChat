@@ -21,8 +21,13 @@
 
 #pragma once
 
+#include <string>
+#include <vector>
+
 #include <QDialog>
 #include <Qt>
+
+#include "trie.hpp"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -34,9 +39,12 @@ class ChatDialog: public QDialog {
 	Q_OBJECT
 
 public:
-	explicit ChatDialog(QWidget* parent = nullptr, Qt::WindowFlags flags = Qt::WindowFlags());
+	ChatDialog(const std::vector<std::string>& searchList, QWidget* parent = nullptr, Qt::WindowFlags flags = Qt::WindowFlags());
 	~ChatDialog();
 
 private:
+	void setListContent(const std::vector<std::string>& content);
+
 	Ui::ChatDialog* m_ChatDialog;
+	Trie* m_Trie;
 };
