@@ -45,7 +45,8 @@ MainWindow::MainWindow(QWidget* parent):
     connect(m_UI->p_cA_createButton, &QPushButton::released, this, &MainWindow::handleCreateAccount);
     connect(m_UI->p_login_loginButton, &QPushButton::released, this, &MainWindow::handleLogin);
 	connect(m_UI->p_main_addDest, &QPushButton::released, this, [] {
-		ChatDialog().exec();
+		// Populate the friends list with temporary values
+		ChatDialog({"hello", "head", "apple"}).exec();
 	});
 
     //check for account file
