@@ -55,6 +55,7 @@ CMakeLists.txt.user*
 *.suo
 *.vcproj
 *vcproj.*.*.user
+*vcxproj.user
 *.ncb
 *.sdf
 *.opensdf
