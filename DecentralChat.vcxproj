@@ -123,12 +123,15 @@
     <ClCompile Include="src\qt\decentralchat-qt\server.cpp" />
     <ClCompile Include="src\qt\decentralchat-qt\styles.cpp" />
     <ClCompile Include="src\rsautil.cpp" />
+    <ClCompile Include="src\trie.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\aesutil.hpp" />
     <ClInclude Include="src\hashing.hpp" />
+    <ClInclude Include="src\osdetect.h" />
     <ClInclude Include="src\qt\decentralchat-qt\enums.hpp" />
     <ClInclude Include="src\qt\decentralchat-qt\styles.hpp" />
+    <ClInclude Include="src\trie.hpp" />
     <QtMoc Include="src\qt\decentralchat-qt\server.hpp" />
     <QtMoc Include="src\qt\decentralchat-qt\mainwindow.hpp" />
     <QtMoc Include="src\qt\decentralchat-qt\link.hpp" />
