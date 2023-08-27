@@ -21,27 +21,29 @@
 
 #include "server.hpp"
 
-Server::Server(QObject* parent):
+Server::Server(QObject* parent) :
 	QTcpServer(parent)
 {
-    const QList<QHostAddress> ipAddressesList = QNetworkInterface::allAddresses();
+	const QList<QHostAddress> ipAddressesList = QNetworkInterface::allAddresses();
 
-    // Use the first non-localhost IPv4 address
-    for (const QHostAddress& entry: ipAddressesList) {
-        if (entry != QHostAddress::LocalHost && entry.toIPv4Address()) {
-            m_HostAddress = entry;
-            break;
-        }
-    }
+	// Use the first non-localhost IPv4 address
+	for (const QHostAddress& entry : ipAddressesList) {
+		if (entry != QHostAddress::LocalHost && entry.toIPv4Address()) {
+			m_HostAddress = entry;
+			break;
+		}
+	}
 
-    // If we did not find one, use IPv4 localhost
-    if (m_HostAddress.isNull()) {
-        m_HostAddress = QHostAddress(QHostAddress::LocalHost);
+	// If we did not find one, use IPv4 localhost
+	if (m_HostAddress.isNull()) {
+		m_HostAddress = QHostAddress(QHostAddress::LocalHost);
 	}
 
 	m_Port = 16000;
 
-	std::cout << "The server is running on IP: " << m_HostAddress.toString().toStdString() << " Port: " << m_Port << "\n";
+	#ifndef WIN32 // Windows non-console apps don't support cout correctly
+		std::cout << "The server is running on IP: " << m_HostAddress.toString().toStdString() << " Port: " << m_Port << "\n";
+	#endif
 
 	connect(this, &QTcpServer::newConnection, this, [this] {
 		m_CurrentSocket = nextPendingConnection();
@@ -63,13 +65,13 @@ Server::Server(QObject* parent):
 				m_IncomingData.clear();
 			}
 
-			// NOTE: Altertnate (simpler) method
+			// NOTE: Alternate (simpler) method
 			// QByteArray data = m_CurrentSocket->readAll();
 			// QString message = QString::fromUtf8(data);
 			// std::cout << message.toStdString() << "\n";
-		});
+			});
 
-		qDebug() << m_CurrentSocket->peerAddress().toString(); // The peer address should now be available.
+			qDebug() << m_CurrentSocket->peerAddress().toString(); // The peer address should now be available.
 	});
 
 	if (!listen(m_HostAddress, m_Port)) {
@@ -80,6 +82,4 @@ Server::Server(QObject* parent):
 	}
 }
 
-Server::~Server() {
-	delete m_TcpServer;
-}
+Server::~Server() {}
